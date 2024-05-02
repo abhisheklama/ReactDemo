@@ -12,7 +12,7 @@ const TeamsLogin = () => {
     const authConfig: TeamsUserCredentialAuthConfig = {
       clientId: "c873c02f-c54c-4ef0-82f2-ca953957b0b7",
       initiateLoginEndpoint:
-        "https://login.microsoftonline.com/9d143c90-308b-45c4-926a-c972e2f01269/oauth2/v2.0/authorize",
+        "https://login.microsoftonline.com/9d143c90-308b-45c4-926a-c972e2f01269/oauth2/authorize",
     };
 
     const teamsUserCredential = new TeamsUserCredential(authConfig);
