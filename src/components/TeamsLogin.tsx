@@ -1,6 +1,7 @@
 import {
   TeamsUserCredentialAuthConfig,
   TeamsUserCredential,
+  TeamsBotSsoPrompt,
 } from "@microsoft/teamsfx";
 import { Client } from "@microsoft/microsoft-graph-client";
 import { TokenCredentialAuthenticationProvider } from "@microsoft/microsoft-graph-client/authProviders/azureTokenCredentials";
@@ -24,15 +25,15 @@ const TeamsLogin = () => {
       }
     );
     console.log("authProvider", authProvider);
-    console.log("fetching  token...");
     teamsUserCredential
-      .getToken("Personal")
-      .then((tokenResponse) => {
-        console.log("ss", tokenResponse);
-        console.log("before login!");
+      .login(["User.Read"])
+      .then(() => {
+        console.log("fetching  token...");
         teamsUserCredential
-          .login(["User.Read"])
-          .then(() => {
+          .getToken("Personal")
+          .then((tokenResponse) => {
+            console.log("ss", tokenResponse);
+            console.log("before login!");
             console.log("inside login fn!");
 
             const graphClient = Client.initWithMiddleware({
