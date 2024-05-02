@@ -1,7 +1,6 @@
 import {
   TeamsUserCredentialAuthConfig,
   TeamsUserCredential,
-  TeamsBotSsoPrompt,
 } from "@microsoft/teamsfx";
 import { Client } from "@microsoft/microsoft-graph-client";
 import { TokenCredentialAuthenticationProvider } from "@microsoft/microsoft-graph-client/authProviders/azureTokenCredentials";
