@@ -16,21 +16,29 @@ const TeamsLogin = () => {
     };
 
     const teamsUserCredential = new TeamsUserCredential(authConfig);
-    const authProvider = new TokenCredentialAuthenticationProvider(
-      teamsUserCredential,
-      {
-        scopes: ["User.Read"],
-      }
-    );
-    const graphClient = Client.initWithMiddleware({
-      authProvider: authProvider,
+    console.log("fetching  token...");
+    teamsUserCredential.getToken("Personal").then((tokenResponse) => {
+      console.log("ss", tokenResponse);
     });
-    graphClient
-      .api("/me")
-      .get()
-      .then((profile) => {
-        console.log(profile);
+    console.log("before login!");
+    teamsUserCredential.login(["User.Read"]).then(() => {
+      console.log("inside login fn!");
+      const authProvider = new TokenCredentialAuthenticationProvider(
+        teamsUserCredential,
+        {
+          scopes: ["User.Read"],
+        }
+      );
+      const graphClient = Client.initWithMiddleware({
+        authProvider: authProvider,
       });
+      graphClient
+        .api("/me")
+        .get()
+        .then((profile) => {
+          console.log(profile);
+        });
+    });
   }, []);
   return <div>Teams</div>;
 };
