@@ -16,6 +16,14 @@ const TeamsLogin = () => {
     };
 
     const teamsUserCredential = new TeamsUserCredential(authConfig);
+    console.log("teamsUserCredential", teamsUserCredential);
+    const authProvider = new TokenCredentialAuthenticationProvider(
+      teamsUserCredential,
+      {
+        scopes: ["User.Read"],
+      }
+    );
+    console.log("authProvider", authProvider);
     console.log("fetching  token...");
     teamsUserCredential
       .getToken("Personal")
@@ -26,12 +34,7 @@ const TeamsLogin = () => {
           .login(["User.Read"])
           .then(() => {
             console.log("inside login fn!");
-            const authProvider = new TokenCredentialAuthenticationProvider(
-              teamsUserCredential,
-              {
-                scopes: ["User.Read"],
-              }
-            );
+
             const graphClient = Client.initWithMiddleware({
               authProvider: authProvider,
             });
