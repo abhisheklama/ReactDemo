@@ -21,30 +21,30 @@ const TeamsLogin = () => {
       .getToken("Personal")
       .then((tokenResponse) => {
         console.log("ss", tokenResponse);
+        console.log("before login!");
+        teamsUserCredential
+          .login(["User.Read"])
+          .then(() => {
+            console.log("inside login fn!");
+            const authProvider = new TokenCredentialAuthenticationProvider(
+              teamsUserCredential,
+              {
+                scopes: ["User.Read"],
+              }
+            );
+            const graphClient = Client.initWithMiddleware({
+              authProvider: authProvider,
+            });
+            graphClient
+              .api("/me")
+              .get()
+              .then((profile) => {
+                console.log(profile);
+              });
+          })
+          .catch((err) => console.log("login err", err));
       })
       .catch((err) => console.log("token err", err));
-    console.log("before login!");
-    teamsUserCredential
-      .login(["User.Read"])
-      .then(() => {
-        console.log("inside login fn!");
-        const authProvider = new TokenCredentialAuthenticationProvider(
-          teamsUserCredential,
-          {
-            scopes: ["User.Read"],
-          }
-        );
-        const graphClient = Client.initWithMiddleware({
-          authProvider: authProvider,
-        });
-        graphClient
-          .api("/me")
-          .get()
-          .then((profile) => {
-            console.log(profile);
-          });
-      })
-      .catch((err) => console.log("login err", err));
   }, []);
   return <div>Teams</div>;
 };
