@@ -37,11 +37,9 @@ function App() {
             })
             .then((res) => {
               console.log("photo", res);
-              const base64Image = btoa(
-                String.fromCharCode.apply(null, res.data)
-              );
+              const base64Image = btoa(res.data);
 
-              const dataURI = `data:image/jpeg;base64,${base64Image}`;
+              const dataURI = `data:image/jpeg;base64, ${base64Image}`;
               setImgUrl(dataURI);
             });
           // Do something with the tokenResponse
