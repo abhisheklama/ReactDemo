@@ -1,9 +1,9 @@
-import { useSearchParams } from "react-router-dom";
+import { InteractionType } from "@azure/msal-browser";
+import { useMsalAuthentication } from "@azure/msal-react";
 
-const Login = () => {
-  const [query] = useSearchParams();
-  console.log("query", query);
-  return <div>Login</div>;
-};
+function Login() {
+  const { login } = useMsalAuthentication(InteractionType.Popup);
 
+  return <button onClick={() => login()}>Sign In</button>;
+}
 export default Login;
