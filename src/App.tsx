@@ -1,9 +1,6 @@
 import "./App.css";
 import { useMsal } from "@azure/msal-react";
-import {
-  InteractionRequiredAuthError,
-  InteractionType,
-} from "@azure/msal-browser";
+import { InteractionRequiredAuthError } from "@azure/msal-browser";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -27,14 +24,14 @@ function App() {
           axios
             .get("https://graph.microsoft.com/v1.0/me", {
               headers: {
-                Authorization: `Bearer ${token.accessToken}`,
+                Authorization: `Bearer ${Token}`,
               },
             })
             .then((res) => console.log("profile", res));
           axios
             .get("https://graph.microsoft.com/v1.0/me/photo/$value", {
               headers: {
-                Authorization: `Bearer ${token.accessToken}`,
+                Authorization: `Bearer ${Token}`,
               },
             })
             .then((res) => console.log("photo", res));
