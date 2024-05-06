@@ -22,7 +22,8 @@ function Login() {
     .catch(async (error) => {
       if (error instanceof InteractionRequiredAuthError) {
         // fallback to interaction when silent call fails
-        return instance.acquireTokenPopup(accessTokenRequest);
+        let token = instance.acquireTokenPopup(accessTokenRequest);
+        console.log("token popup", token);
       }
 
       // handle other errors
