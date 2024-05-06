@@ -21,7 +21,7 @@ function Login() {
   );
   useEffect(() => {
     // Get access token for the first account
-    if (inProgress == "login") {
+    if (inProgress == "none") {
       const accessTokenRequest = {
         scopes: ["user.read"], // Scopes required for your API
       };
