@@ -32,7 +32,6 @@ const TeamsLogin = () => {
           .getToken("Personal")
           .then((tokenResponse) => {
             console.log("ss", tokenResponse);
-            console.log("before login!");
             console.log("inside login fn!");
 
             const graphClient = Client.initWithMiddleware({
@@ -45,9 +44,9 @@ const TeamsLogin = () => {
                 console.log(profile);
               });
           })
-          .catch((err) => console.log("login err", err));
+          .catch((err) => console.log("token err", err));
       })
-      .catch((err) => console.log("token err", err));
+      .catch((err) => console.log("login err", err));
   }, []);
   return <div>Teams</div>;
 };
