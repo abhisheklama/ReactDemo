@@ -35,11 +35,11 @@ function App() {
                 Authorization: `Bearer ${token.accessToken}`,
               },
             })
-            .then((res) => {
+            .then(async (res) => {
               console.log("photo", res);
-              const base64Image = btoa(res.data);
+              const responseBlob = await res.data.blob();
 
-              const dataURI = `data:image/jpeg;base64, ${base64Image}`;
+              const dataURI = URL.createObjectURL(responseBlob);
               setImgUrl(dataURI);
             });
           // Do something with the tokenResponse
