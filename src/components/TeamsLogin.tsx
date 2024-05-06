@@ -25,7 +25,7 @@ const TeamsLogin = () => {
     );
     console.log("authProvider", authProvider);
     teamsUserCredential
-      .getToken("")
+      .getToken("Personal")
       .then((token) => {
         console.log("token", token);
       })
