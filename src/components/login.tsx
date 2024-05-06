@@ -1,11 +1,9 @@
 import {
   InteractionRequiredAuthError,
   InteractionType,
-  PublicClientApplication,
 } from "@azure/msal-browser";
 import { useMsal, useMsalAuthentication } from "@azure/msal-react";
 import { useEffect } from "react";
-import { msalConfig } from "../msalConfig";
 
 function Login() {
   const { login } = useMsalAuthentication(InteractionType.Popup);
@@ -24,12 +22,12 @@ function Login() {
   useEffect(() => {
     // Get access token for the first account
     if (inProgress == "none") {
+      instance.setActiveAccount(accounts[0]);
       const accessTokenRequest = {
         scopes: ["User.read"], // Scopes required for your API
       };
-      let client = new PublicClientApplication(msalConfig);
       console.log("before token");
-      client
+      instance
         .acquireTokenSilent(accessTokenRequest)
         .then((token) => {
           console.log("token", token);
@@ -38,7 +36,7 @@ function Login() {
         .catch(async (error) => {
           if (error instanceof InteractionRequiredAuthError) {
             // fallback to interaction when silent call fails
-            let token = client.acquireTokenPopup(accessTokenRequest);
+            let token = instance.acquireTokenPopup(accessTokenRequest);
             console.log("token popup", token);
           }
           console.log("error", error);
