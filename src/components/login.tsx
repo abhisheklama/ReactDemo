@@ -12,7 +12,7 @@ function Login() {
   const accessTokenRequest = {
     scopes: ["user.read"], // Scopes required for your API
   };
-
+  console.log("before token");
   instance
     .acquireTokenSilent(accessTokenRequest)
     .then((token) => {
@@ -25,7 +25,7 @@ function Login() {
         let token = instance.acquireTokenPopup(accessTokenRequest);
         console.log("token popup", token);
       }
-
+      console.log("error", error);
       // handle other errors
     });
   return <button onClick={() => login()}>Sign In</button>;
