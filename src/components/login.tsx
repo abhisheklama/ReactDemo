@@ -8,6 +8,7 @@ function Login() {
   const { login } = useMsalAuthentication(InteractionType.Popup);
 
   const { instance } = useMsal();
+  console.log("instance", instance);
   // Get access token for the first account
   const accessTokenRequest = {
     scopes: ["user.read"], // Scopes required for your API
