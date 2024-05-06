@@ -20,18 +20,19 @@ function App() {
         .then((token) => {
           console.log("token", token);
           setToken(token.accessToken);
+          console.log("Token", Token);
 
           axios
             .get("https://graph.microsoft.com/v1.0/me", {
               headers: {
-                Authorization: `Bearer ${Token}`,
+                Authorization: `Bearer ${token.accessToken}`,
               },
             })
             .then((res) => console.log("profile", res));
           axios
             .get("https://graph.microsoft.com/v1.0/me/photo/$value", {
               headers: {
-                Authorization: `Bearer ${Token}`,
+                Authorization: `Bearer ${token.accessToken}`,
               },
             })
             .then((res) => console.log("photo", res));
