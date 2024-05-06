@@ -25,6 +25,17 @@ const TeamsLogin = () => {
     );
     console.log("authProvider", authProvider);
     teamsUserCredential
+      .getToken("Personal")
+      .then((token) => {
+        console.log("token", token);
+      })
+      .catch((err) => console.log("token err", err));
+
+    teamsUserCredential
+      .getUserInfo()
+      .then((user) => console.log("user", user))
+      .catch((err) => console.log("user err", err));
+    teamsUserCredential
       .login(["User.Read"])
       .then(() => {
         console.log("fetching  token...");
