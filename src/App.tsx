@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import "./App.css";
 import TeamsLogin from "./components/TeamsLogin";
 import Login from "./components/login";
@@ -17,9 +17,13 @@ function App() {
 export default App;
 
 const Home = () => {
+  const navigate = useNavigate();
+
   return (
     <>
       <h1>Demo App</h1>
+      <h2 onClick={() => navigate("/login")}>Login</h2>
+      <h2 onClick={() => navigate("/About")}>About</h2>
       <TeamsLogin />
     </>
   );
