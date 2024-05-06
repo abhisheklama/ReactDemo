@@ -8,6 +8,8 @@ function App() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/about" element={<About />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }
@@ -21,4 +23,12 @@ const Home = () => {
       <TeamsLogin />
     </>
   );
+};
+
+const About = () => {
+  return <h1>ABout</h1>;
+};
+
+const NotFound = () => {
+  return <h1>Page Not Found</h1>;
 };
