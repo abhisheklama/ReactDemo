@@ -6,7 +6,8 @@ import axios from "axios";
 
 function App() {
   const { instance, inProgress, accounts } = useMsal();
-  const [Token, setToken] = useState("");
+  const [profile, setProfile] = useState<any>(null);
+  const [ImgUrl, setImgUrl] = useState("");
   useEffect(() => {
     // Get access token for the first account
     if (inProgress == "none") {
@@ -18,24 +19,26 @@ function App() {
       instance
         .acquireTokenSilent(accessTokenRequest)
         .then((token) => {
-          console.log("token", token);
-          setToken(token.accessToken);
-          console.log("Token", Token);
-
           axios
             .get("https://graph.microsoft.com/v1.0/me", {
               headers: {
                 Authorization: `Bearer ${token.accessToken}`,
               },
             })
-            .then((res) => console.log("profile", res));
+            .then((res) => {
+              console.log("profile", res);
+              setProfile(res.data);
+            });
           axios
             .get("https://graph.microsoft.com/v1.0/me/photo/$value", {
               headers: {
                 Authorization: `Bearer ${token.accessToken}`,
               },
             })
-            .then((res) => console.log("photo", res));
+            .then((res) => {
+              console.log("photo", res);
+              setImgUrl(res.data);
+            });
           // Do something with the tokenResponse
         })
         .catch(async (error) => {
@@ -51,9 +54,23 @@ function App() {
   }, [inProgress]);
   return (
     <>
-      <h1>Demo App</h1>
+      {!profile ? (
+        <h1>Demo App</h1>
+      ) : (
+        <Profile profile={profile} img={ImgUrl} />
+      )}
     </>
   );
 }
+
+const Profile = ({ profile, img }: { profile: any; img: string }) => {
+  return (
+    <>
+      <img src={img} />
+      <h2>{profile.displayName}</h2>
+      <p>{profile.mail}</p>
+    </>
+  );
+};
 
 export default App;
