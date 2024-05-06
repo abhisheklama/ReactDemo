@@ -42,7 +42,16 @@ function App() {
               const dataURI = URL.createObjectURL(responseBlob);
               setImgUrl(dataURI);
             });
-          // Do something with the tokenResponse
+
+          axios
+            .get("https://graph.microsoft.com/v1.0/users", {
+              headers: {
+                Authorization: `Bearer ${token.accessToken}`,
+              },
+            })
+            .then(async (res) => {
+              console.log("users", res);
+            });
         })
         .catch(async (error) => {
           if (error instanceof InteractionRequiredAuthError) {
