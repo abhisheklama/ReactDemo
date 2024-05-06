@@ -10,33 +10,15 @@ import { useEffect } from "react";
 const TeamsLogin = () => {
   useEffect(() => {
     const authConfig: TeamsUserCredentialAuthConfig = {
-      clientId: "c873c02f-c54c-4ef0-82f2-ca953957b0b7",
-      initiateLoginEndpoint:
-        "https://login.microsoftonline.com/9d143c90-308b-45c4-926a-c972e2f01269/oauth2/authorize",
+      clientId: "xxx",
+      initiateLoginEndpoint: "https://react-demo-pied.vercel.app/login",
     };
 
     const teamsUserCredential = new TeamsUserCredential(authConfig);
     console.log("teamsUserCredential", teamsUserCredential);
-    const authProvider = new TokenCredentialAuthenticationProvider(
-      teamsUserCredential,
-      {
-        scopes: ["User.Read"],
-      }
-    );
-    console.log("authProvider", authProvider);
-    teamsUserCredential
-      .getToken("Personal")
-      .then((token) => {
-        console.log("token", token);
-      })
-      .catch((err) => console.log("token err", err));
 
     teamsUserCredential
-      .getUserInfo()
-      .then((user) => console.log("user", user))
-      .catch((err) => console.log("user err", err));
-    teamsUserCredential
-      .login(["User.Read"])
+      .login("User.Read")
       .then(() => {
         console.log("fetching  token...");
         teamsUserCredential
@@ -44,6 +26,14 @@ const TeamsLogin = () => {
           .then((tokenResponse) => {
             console.log("ss", tokenResponse);
             console.log("inside login fn!");
+
+            const authProvider = new TokenCredentialAuthenticationProvider(
+              teamsUserCredential,
+              {
+                scopes: ["User.Read"],
+              }
+            );
+            console.log("authProvider", authProvider);
 
             const graphClient = Client.initWithMiddleware({
               authProvider: authProvider,
