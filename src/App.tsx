@@ -20,7 +20,7 @@ function App() {
     // console.log("msal", msal);
     const authConfig: TeamsUserCredentialAuthConfig = {
       clientId: "c873c02f-c54c-4ef0-82f2-ca953957b0b7",
-      initiateLoginEndpoint: `${window.location.origin}/login`,
+      initiateLoginEndpoint: `${window.location.origin}/auth_start`,
     };
 
     const teamsUserCredential = new TeamsUserCredential(authConfig);
