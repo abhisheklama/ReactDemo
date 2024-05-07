@@ -1,8 +1,11 @@
 import { useSearchParams } from "react-router-dom";
 
 const TeamsLogin = () => {
-  const query = useSearchParams();
+  const [query] = useSearchParams();
   console.log("query", query);
+  const clientId = query.get("clientId");
+  console.log("clientId", clientId);
+
   // const msalConfig = {
   //   auth: {
   //     clientId: "c873c02f-c54c-4ef0-82f2-ca953957b0b7",
