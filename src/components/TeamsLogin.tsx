@@ -24,6 +24,7 @@ const TeamsLogin = () => {
 
   msal.initialize().then((res: any) => {
     console.log("response", res);
+    localStorage.setItem("res", JSON.stringify(res));
     msal.loginRedirect();
   });
 
