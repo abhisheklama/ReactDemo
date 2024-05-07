@@ -13,7 +13,12 @@ function App() {
     console.log("msal", msal);
     // Get access token for the first account
     if (inProgress == "none") {
-      instance.setActiveAccount(accounts[0]);
+      if (accounts.length > 0) instance.setActiveAccount(accounts[0]);
+      else {
+        let account = instance.getActiveAccount();
+        instance.setActiveAccount(account);
+        console.log("account", account);
+      }
       const accessTokenRequest = {
         scopes: ["User.read"], // Scopes required for your API
       };
