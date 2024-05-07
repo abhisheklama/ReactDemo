@@ -7,14 +7,22 @@ import { msalConfig } from "./msalConfig.ts";
 import { createContext, useState } from "react";
 
 const msalInstance = new PublicClientApplication(msalConfig);
-const token = useState("");
+let initial: any[] = [];
+export const TokenContext = createContext(initial);
 
-export const TokenContext = createContext(token);
+const TokenProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
+  const token = useState("");
+  return (
+    <TokenContext.Provider value={token}>{children}</TokenContext.Provider>
+  );
+};
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <MsalProvider instance={msalInstance}>
-    <TokenContext.Provider value={token}>
+    <TokenProvider>
       <App />
-    </TokenContext.Provider>
+    </TokenProvider>
   </MsalProvider>
 );

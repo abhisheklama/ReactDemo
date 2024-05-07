@@ -16,68 +16,66 @@ function App() {
     console.log("msal", msal);
     // Get access token for the first account
     let token = localStorage.getItem("token");
+    console.log("token", token);
     if (token) {
     } else {
-      instance.loginPopup().then((res) => {
-        console.log("res", res);
-        if (inProgress == "none") {
-          instance.setActiveAccount(accounts[0]);
-          const accessTokenRequest = {
-            scopes: ["User.read"], // Scopes required for your API
-          };
-          console.log("before token");
-          instance
-            .acquireTokenSilent(accessTokenRequest)
-            .then((token) => {
-              let [GlobalTOken, setToken] = tokenContext;
-              setToken(token.accessToken);
-              axios
-                .get("https://graph.microsoft.com/v1.0/me", {
-                  headers: {
-                    Authorization: `Bearer ${token.accessToken}`,
-                  },
-                })
-                .then((res) => {
-                  console.log("profile", res, GlobalTOken);
-                  setProfile(res.data);
-                });
-              axios
-                .get("https://graph.microsoft.com/v1.0/me/photo/$value", {
-                  headers: {
-                    Authorization: `Bearer ${token.accessToken}`,
-                  },
-                })
-                .then(async (res) => {
-                  console.log("photo", res);
-                  const responseBlob = await res.data.blob();
+      if (inProgress == "none") {
+        instance.setActiveAccount(accounts[0]);
+        const accessTokenRequest = {
+          scopes: ["User.read"], // Scopes required for your API
+        };
+        console.log("before token");
+        instance
+          .acquireTokenSilent(accessTokenRequest)
+          .then((token) => {
+            let [GlobalTOken, setToken] = tokenContext;
+            setToken(token.accessToken);
+            axios
+              .get("https://graph.microsoft.com/v1.0/me", {
+                headers: {
+                  Authorization: `Bearer ${token.accessToken}`,
+                },
+              })
+              .then((res) => {
+                console.log("profile", res, GlobalTOken);
+                setProfile(res.data);
+              });
+            axios
+              .get("https://graph.microsoft.com/v1.0/me/photo/$value", {
+                headers: {
+                  Authorization: `Bearer ${token.accessToken}`,
+                },
+              })
+              .then(async (res) => {
+                console.log("photo", res);
+                const responseBlob = await res.data.blob();
 
-                  const dataURI = URL.createObjectURL(responseBlob);
-                  setImgUrl(dataURI);
-                });
+                const dataURI = URL.createObjectURL(responseBlob);
+                setImgUrl(dataURI);
+              });
 
-              axios
-                .get("https://graph.microsoft.com/v1.0/users", {
-                  headers: {
-                    Authorization: `Bearer ${token.accessToken}`,
-                  },
-                })
-                .then(async (res) => {
-                  console.log("users", res);
-                });
-            })
-            .catch(async (error) => {
-              if (error instanceof InteractionRequiredAuthError) {
-                // fallback to interaction when silent call fails
-                let token = instance.acquireTokenPopup(accessTokenRequest);
-                console.log("token popup", token);
-              }
-              console.log("error", error);
-              // handle other errors
-            });
-        }
-      });
+            axios
+              .get("https://graph.microsoft.com/v1.0/users", {
+                headers: {
+                  Authorization: `Bearer ${token.accessToken}`,
+                },
+              })
+              .then(async (res) => {
+                console.log("users", res);
+              });
+          })
+          .catch(async (error) => {
+            if (error instanceof InteractionRequiredAuthError) {
+              // fallback to interaction when silent call fails
+              let token = instance.acquireTokenPopup(accessTokenRequest);
+              console.log("token popup", token);
+            }
+            console.log("error", error);
+            // handle other errors
+          });
+      }
     }
-  }, []);
+  }, [inProgress]);
   return (
     <>
       {!profile ? (
