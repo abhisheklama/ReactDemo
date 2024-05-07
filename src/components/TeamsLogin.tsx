@@ -22,8 +22,10 @@ const TeamsLogin = () => {
 
   const msal = new PublicClientApplication(msalConfig);
 
-  (async () => await msal.initialize())();
-  msal.loginRedirect();
+  msal.initialize().then((res: any) => {
+    console.log("response", res);
+    msal.loginRedirect();
+  });
 
   return <>Login</>;
 };
