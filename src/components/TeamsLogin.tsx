@@ -53,7 +53,7 @@ const TeamsLogin = () => {
   msal.initialize().then((res: any) => {
     let loginRequest = {
       scopes: scopesArray,
-      redirectUri: window.location.origin + `/auth_end`,
+      redirectUri: window.location.origin + `/auth_end?clientId=` + clientId,
       loginHint: loginHint + "",
     };
 

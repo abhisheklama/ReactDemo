@@ -1,13 +1,13 @@
 import { PublicClientApplication } from "@azure/msal-browser";
-// import { useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 const AuthEnd = () => {
-  //   const [query] = useSearchParams();
-  //   console.log("query", query);
-  //   const clientId = query.get("clientId");
+  const [query] = useSearchParams();
+  console.log("query", query);
+  const clientId = query.get("clientId");
   const msalConfig = {
     auth: {
-      clientId: "c873c02f-c54c-4ef0-82f2-ca953957b0b7",
+      clientId: clientId + "",
       authority:
         "https://login.microsoftonline.com/9d143c90-308b-45c4-926a-c972e2f01269",
       navigateToLoginRequestUrl: false,
@@ -21,7 +21,11 @@ const AuthEnd = () => {
   msal.initialize().then(() => {
     msal
       .handleRedirectPromise()
-      .then((token) => console.log("end token", token))
+      .then((token) => {
+        console.log("end token", token);
+        localStorage.setItem("token", JSON.stringify(token));
+        close();
+      })
       .catch((err) => console.log("err token", err));
   });
   return <>Auth End</>;
