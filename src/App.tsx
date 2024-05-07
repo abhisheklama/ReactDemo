@@ -13,7 +13,7 @@ function App() {
     if (inProgress == "none") {
       instance.setActiveAccount(accounts[0]);
       const accessTokenRequest = {
-        scopes: ["User.read"], // Scopes required for your API
+        scopes: ["User.read", "User.read.all"], // Scopes required for your API
       };
       console.log("before token");
       instance
