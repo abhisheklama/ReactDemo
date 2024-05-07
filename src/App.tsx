@@ -1,8 +1,8 @@
 import "./App.css";
-import { useMsal } from "@azure/msal-react";
-import { InteractionRequiredAuthError } from "@azure/msal-browser";
+// import { useMsal } from "@azure/msal-react";
+// import { InteractionRequiredAuthError } from "@azure/msal-browser";
+// import axios from "axios";
 import { useContext, useEffect, useState } from "react";
-import axios from "axios";
 import { TokenContext } from "./main";
 import {
   TeamsUserCredential,
@@ -10,14 +10,14 @@ import {
 } from "@microsoft/teamsfx";
 
 function App() {
-  const msal = useMsal();
-  const { instance, inProgress, accounts } = msal;
-  const [profile, setProfile] = useState<any>(null);
-  const [ImgUrl, setImgUrl] = useState("");
+  // const msal = useMsal();
+  // const { instance, inProgress, accounts } = msal;
+  const [profile] = useState<any>(null);
+  const [ImgUrl] = useState("");
   const tokenContext = useContext(TokenContext);
   console.log("tokenContext", tokenContext);
   useEffect(() => {
-    console.log("msal", msal);
+    // console.log("msal", msal);
     const authConfig: TeamsUserCredentialAuthConfig = {
       clientId: "c873c02f-c54c-4ef0-82f2-ca953957b0b7",
       initiateLoginEndpoint: `${window.location.origin}/login`,
@@ -38,66 +38,66 @@ function App() {
       .catch((err) => console.log("token err", err));
 
     // Get access token for the first account
-    let token = localStorage.getItem("token");
-    console.log("token", token);
-    if (token) {
-    } else {
-      if (inProgress == "none") {
-        instance.setActiveAccount(accounts[0]);
-        const accessTokenRequest = {
-          scopes: ["User.read"], // Scopes required for your API
-        };
-        console.log("before token");
-        instance
-          .acquireTokenSilent(accessTokenRequest)
-          .then((token) => {
-            let [GlobalTOken, setToken] = tokenContext;
-            setToken(token.accessToken);
-            axios
-              .get("https://graph.microsoft.com/v1.0/me", {
-                headers: {
-                  Authorization: `Bearer ${token.accessToken}`,
-                },
-              })
-              .then((res) => {
-                console.log("profile", res, GlobalTOken);
-                setProfile(res.data);
-              });
-            axios
-              .get("https://graph.microsoft.com/v1.0/me/photo/$value", {
-                headers: {
-                  Authorization: `Bearer ${token.accessToken}`,
-                },
-              })
-              .then(async (res) => {
-                console.log("photo", res);
-                const responseBlob = await res.data.blob();
+    // let token = localStorage.getItem("token");
+    // console.log("token", token);
+    // if (token) {
+    // } else {
+    //   if (inProgress == "none") {
+    //     instance.setActiveAccount(accounts[0]);
+    //     const accessTokenRequest = {
+    //       scopes: ["User.read"], // Scopes required for your API
+    //     };
+    //     console.log("before token");
+    //     instance
+    //       .acquireTokenSilent(accessTokenRequest)
+    //       .then((token) => {
+    //         let [GlobalTOken, setToken] = tokenContext;
+    //         setToken(token.accessToken);
+    //         axios
+    //           .get("https://graph.microsoft.com/v1.0/me", {
+    //             headers: {
+    //               Authorization: `Bearer ${token.accessToken}`,
+    //             },
+    //           })
+    //           .then((res) => {
+    //             console.log("profile", res, GlobalTOken);
+    //             setProfile(res.data);
+    //           });
+    //         axios
+    //           .get("https://graph.microsoft.com/v1.0/me/photo/$value", {
+    //             headers: {
+    //               Authorization: `Bearer ${token.accessToken}`,
+    //             },
+    //           })
+    //           .then(async (res) => {
+    //             console.log("photo", res);
+    //             const responseBlob = await res.data.blob();
 
-                const dataURI = URL.createObjectURL(responseBlob);
-                setImgUrl(dataURI);
-              });
+    //             const dataURI = URL.createObjectURL(responseBlob);
+    //             setImgUrl(dataURI);
+    //           });
 
-            axios
-              .get("https://graph.microsoft.com/v1.0/users", {
-                headers: {
-                  Authorization: `Bearer ${token.accessToken}`,
-                },
-              })
-              .then(async (res) => {
-                console.log("users", res);
-              });
-          })
-          .catch(async (error) => {
-            if (error instanceof InteractionRequiredAuthError) {
-              // fallback to interaction when silent call fails
-              let token = instance.acquireTokenPopup(accessTokenRequest);
-              console.log("token popup", token);
-            }
-            console.log("error", error);
-            // handle other errors
-          });
-      }
-    }
+    //         axios
+    //           .get("https://graph.microsoft.com/v1.0/users", {
+    //             headers: {
+    //               Authorization: `Bearer ${token.accessToken}`,
+    //             },
+    //           })
+    //           .then(async (res) => {
+    //             console.log("users", res);
+    //           });
+    //       })
+    //       .catch(async (error) => {
+    //         if (error instanceof InteractionRequiredAuthError) {
+    //           // fallback to interaction when silent call fails
+    //           let token = instance.acquireTokenPopup(accessTokenRequest);
+    //           console.log("token popup", token);
+    //         }
+    //         console.log("error", error);
+    //         // handle other errors
+    //       });
+    //   }
+    // }
   }, []);
   return (
     <>

@@ -1,55 +1,22 @@
-// import {
-//   TeamsUserCredentialAuthConfig,
-//   TeamsUserCredential,
-// } from "@microsoft/teamsfx";
-// import { Client } from "@microsoft/microsoft-graph-client";
-// import { TokenCredentialAuthenticationProvider } from "@microsoft/microsoft-graph-client/authProviders/azureTokenCredentials";
-
-// import { useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 
 const TeamsLogin = () => {
-  // useEffect(() => {
-  //   const authConfig: TeamsUserCredentialAuthConfig = {
-  //     clientId: "xxx",
-  //     initiateLoginEndpoint: "https://react-demo-pied.vercel.app/login",
-  //   };
+  const query = useSearchParams();
+  console.log("query", query);
+  // const msalConfig = {
+  //   auth: {
+  //     clientId: "c873c02f-c54c-4ef0-82f2-ca953957b0b7",
+  //     authority:
+  //       "https://login.microsoftonline.com/9d143c90-308b-45c4-926a-c972e2f01269",
+  //     redirectUri: "https://react-demo-pied.vercel.app/", // Update with your redirect URI
+  //   },
+  //   cache: {
+  //     cacheLocation: "sessionStorage", // This configures where your cache will be stored
+  //     storeAuthStateInCookie: false, // Set this to "true" if you are having issues on IE11 or Edge
+  //   },
+  // };
 
-  //   const teamsUserCredential = new TeamsUserCredential(authConfig);
-  //   console.log("teamsUserCredential", teamsUserCredential);
-
-  //   teamsUserCredential
-  //     .login("User.Read")
-  //     .then(() => {
-  //       console.log("fetching  token...");
-  //       teamsUserCredential
-  //         .getToken("Personal")
-  //         .then((tokenResponse) => {
-  //           console.log("ss", tokenResponse);
-  //           console.log("inside login fn!");
-
-  //           const authProvider = new TokenCredentialAuthenticationProvider(
-  //             teamsUserCredential,
-  //             {
-  //               scopes: ["User.Read"],
-  //             }
-  //           );
-  //           console.log("authProvider", authProvider);
-
-  //           const graphClient = Client.initWithMiddleware({
-  //             authProvider: authProvider,
-  //           });
-  //           graphClient
-  //             .api("/me")
-  //             .get()
-  //             .then((profile) => {
-  //               console.log(profile);
-  //             });
-  //         })
-  //         .catch((err) => console.log("token err", err));
-  //     })
-  //     .catch((err) => console.log("login err", err));
-  // }, []);
-  return <div>Teams</div>;
+  return <>Login</>;
 };
 
 export default TeamsLogin;
