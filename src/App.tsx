@@ -16,8 +16,9 @@ function App() {
       if (accounts.length > 0) instance.setActiveAccount(accounts[0]);
       else {
         let account = instance.getActiveAccount();
+        let allAccounts = instance.getAllAccounts();
         instance.setActiveAccount(account);
-        console.log("account", account);
+        console.log("account", account, allAccounts);
       }
       const accessTokenRequest = {
         scopes: ["User.read"], // Scopes required for your API
