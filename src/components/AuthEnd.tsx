@@ -2,6 +2,7 @@ import { PublicClientApplication } from "@azure/msal-browser";
 
 const AuthEnd = () => {
   const clientId = sessionStorage.getItem("clientId");
+  console.log("clientId", clientId);
   const msalConfig = {
     auth: {
       clientId: clientId + "",
