@@ -54,8 +54,9 @@ const TeamsLogin = () => {
       scopes: ["user.read"], // optional Array<string>
     };
     console.log("response", res);
-    localStorage.setItem("res", JSON.stringify(res));
-    msal.loginRedirect(loginRequest);
+    msal
+      .loginRedirect(loginRequest)
+      .catch((err) => console.log("redirect err", err));
   });
 
   return <>Login</>;
