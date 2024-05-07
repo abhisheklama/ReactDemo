@@ -5,10 +5,12 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 function App() {
-  const { instance, inProgress, accounts } = useMsal();
+  const msal = useMsal();
+  const { instance, inProgress, accounts } = msal;
   const [profile, setProfile] = useState<any>(null);
   const [ImgUrl, setImgUrl] = useState("");
   useEffect(() => {
+    console.log("msal", msal);
     // Get access token for the first account
     if (inProgress == "none") {
       instance.setActiveAccount(accounts[0]);
