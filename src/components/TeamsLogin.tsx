@@ -56,7 +56,16 @@ const TeamsLogin = () => {
     console.log("response", res);
     msal
       .loginRedirect(loginRequest)
-      .catch((err) => console.log("redirect err", err));
+      .then((res) => {
+        console.log("res", res);
+        localStorage.setItem("res", JSON.stringify(res));
+        close();
+      })
+      .catch((err) => {
+        console.log("redirect err", err);
+        localStorage.setItem("err", JSON.stringify(err));
+        close();
+      });
   });
 
   return <>Login</>;
