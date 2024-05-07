@@ -28,6 +28,15 @@ function App() {
     // Put these code in a call-to-action callback function to avoid browser blocking automatically showing up pop-ups.
     (async () => await teamsUserCredential.login(["User.Read"]))(); // Login with scope
 
+    teamsUserCredential
+      .getUserInfo()
+      .then((user) => console.log("user >", user))
+      .catch((err) => console.log("user err", err));
+    teamsUserCredential
+      .getToken("Personal")
+      .then((token) => console.log("token >", token))
+      .catch((err) => console.log("token err", err));
+
     // Get access token for the first account
     let token = localStorage.getItem("token");
     console.log("token", token);
