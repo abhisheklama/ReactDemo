@@ -26,16 +26,19 @@ function App() {
     const teamsUserCredential = new TeamsUserCredential(authConfig);
     console.log("teamsUserCredential", teamsUserCredential);
     // Put these code in a call-to-action callback function to avoid browser blocking automatically showing up pop-ups.
-    (async () => await teamsUserCredential.login(["User.Read"]))(); // Login with scope
+    teamsUserCredential
+      .login(["User.Read"])
+      .then((res) => console.log("login res", res))
+      .catch((err) => console.log("login - err >", err)); // Login with scope
 
     teamsUserCredential
       .getUserInfo()
       .then((user) => console.log("user >", user))
       .catch((err) => console.log("user err", err));
-    teamsUserCredential
-      .getToken("Personal")
-      .then((token) => console.log("token >", token))
-      .catch((err) => console.log("token err", err));
+    // teamsUserCredential
+    //   .getToken("Personal")
+    //   .then((token) => console.log("token >", token))
+    //   .catch((err) => console.log("token err", err));
 
     // Get access token for the first account
     // let token = localStorage.getItem("token");
