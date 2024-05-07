@@ -4,6 +4,7 @@ import "./index.css";
 import { createContext, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import TeamsLogin from "./components/TeamsLogin.tsx";
+import AuthEnd from "./components/AuthEnd.tsx";
 
 let initial: any[] = [];
 export const TokenContext = createContext(initial);
@@ -22,7 +23,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />} />
-        <Route path="/login" element={<TeamsLogin />} />
+        <Route path="/auth_start" element={<TeamsLogin />} />
+        <Route path="/auth_end" element={<AuthEnd />} />
       </Routes>
     </BrowserRouter>
   </TokenProvider>

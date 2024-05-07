@@ -29,11 +29,7 @@ function App() {
     teamsUserCredential
       .login(["User.Read"])
       .then((res) => console.log("login res", res))
-      .catch((err) => {
-        console.log("login - err >", err);
-        localStorage.setItem("err", JSON.stringify(err));
-        close();
-      }); // Login with scope
+      .catch((err) => console.log("login - err >", err)); // Login with scope
 
     teamsUserCredential
       .getUserInfo()

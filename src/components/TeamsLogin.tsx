@@ -5,8 +5,9 @@ const TeamsLogin = () => {
   const [query] = useSearchParams();
   console.log("query", query);
   const clientId = query.get("clientId");
-  console.log("clientId", clientId);
-
+  const loginHint = query.get("loginHint");
+  var scope = "User.Read email openid profile offline_access";
+  const scopesArray = scope.split(" ");
   const msalConfig = {
     auth: {
       clientId: clientId + "",
@@ -51,24 +52,23 @@ const TeamsLogin = () => {
 
   msal.initialize().then((res: any) => {
     let loginRequest = {
-      scopes: [""], // optional Array<string>
+      scopes: scopesArray,
+      redirectUri: window.location.origin + `/auth-end`,
+      loginHint: loginHint + "",
     };
+
     console.log("response", res);
     msal
       .loginRedirect(loginRequest)
       .then((res) => {
         console.log("res", res);
-        localStorage.setItem("res", JSON.stringify(res));
-        close();
       })
       .catch((err) => {
         console.log("redirect err", err);
-        localStorage.setItem("err", JSON.stringify(err));
-        close();
       });
   });
 
-  return <>Login</>;
+  return <>Auth Start</>;
 };
 
 export default TeamsLogin;
