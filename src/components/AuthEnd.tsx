@@ -21,7 +21,6 @@ const AuthEnd = () => {
       .then((token) => {
         console.log("end token", token);
         localStorage.setItem("token", JSON.stringify(token));
-        close();
       })
       .catch((err) => console.log("err token", err));
   });
