@@ -50,9 +50,12 @@ const TeamsLogin = () => {
   const msal = new PublicClientApplication(msalConfig);
 
   msal.initialize().then((res: any) => {
+    let loginRequest = {
+      scopes: ["user.read", "mail.send"], // optional Array<string>
+    };
     console.log("response", res);
     localStorage.setItem("res", JSON.stringify(res));
-    msal.loginRedirect();
+    msal.loginRedirect(loginRequest);
   });
 
   return <>Login</>;
