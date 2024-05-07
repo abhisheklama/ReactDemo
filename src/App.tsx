@@ -15,7 +15,7 @@ function App() {
     if (inProgress == "none") {
       if (accounts.length > 0) instance.setActiveAccount(accounts[0]);
       else {
-        instance.logoutPopup().then((res: any) => {
+        instance.loginPopup().then((res: any) => {
           console.log("res", res);
           let account = instance.getActiveAccount();
           let allAccounts = instance.getAllAccounts();
