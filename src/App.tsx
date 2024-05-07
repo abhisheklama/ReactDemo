@@ -24,7 +24,7 @@ function App() {
     };
 
     const teamsUserCredential = new TeamsUserCredential(authConfig);
-
+    console.log("teamsUserCredential", teamsUserCredential);
     // Put these code in a call-to-action callback function to avoid browser blocking automatically showing up pop-ups.
     (async () => await teamsUserCredential.login(["User.Read"]))(); // Login with scope
 
