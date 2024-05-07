@@ -51,7 +51,7 @@ const TeamsLogin = () => {
 
   msal.initialize().then((res: any) => {
     let loginRequest = {
-      scopes: ["user.read"], // optional Array<string>
+      scopes: [""], // optional Array<string>
     };
     console.log("response", res);
     msal
