@@ -1,10 +1,7 @@
 import { PublicClientApplication } from "@azure/msal-browser";
-import { useSearchParams } from "react-router-dom";
 
 const AuthEnd = () => {
-  const [query] = useSearchParams();
-  console.log("query", query);
-  const clientId = query.get("clientId");
+  const clientId = sessionStorage.getItem("clientId");
   const msalConfig = {
     auth: {
       clientId: clientId + "",

@@ -47,13 +47,14 @@ const TeamsLogin = () => {
       },
     },
   };
+  sessionStorage.setItem("clientId", JSON.stringify(clientId));
 
   const msal = new PublicClientApplication(msalConfig);
 
   msal.initialize().then((res: any) => {
     let loginRequest = {
       scopes: scopesArray,
-      redirectUri: window.location.origin + `/auth_end?clientId=` + clientId,
+      redirectUri: window.location.origin + `/auth_end`,
       loginHint: loginHint + "",
     };
 
