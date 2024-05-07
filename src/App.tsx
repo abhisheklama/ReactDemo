@@ -15,10 +15,13 @@ function App() {
     if (inProgress == "none") {
       if (accounts.length > 0) instance.setActiveAccount(accounts[0]);
       else {
-        let account = instance.getActiveAccount();
-        let allAccounts = instance.getAllAccounts();
-        instance.setActiveAccount(account);
-        console.log("account", account, allAccounts);
+        instance.logoutPopup().then((res) => {
+          console.log("res", res);
+          let account = instance.getActiveAccount();
+          let allAccounts = instance.getAllAccounts();
+          instance.setActiveAccount(account);
+          console.log("account", account, allAccounts);
+        });
       }
       const accessTokenRequest = {
         scopes: ["User.read"], // Scopes required for your API
