@@ -12,7 +12,6 @@ function App() {
   const [profile, setProfile] = useState<any>(null);
   const { token, setToken } = useContext(TokenContext);
   const [users, setUsers] = useState<any[]>([]);
-  console.log("token >>", token);
   useEffect(() => {
     if (token == "null" || !token) {
       const authConfig: TeamsUserCredentialAuthConfig = {
@@ -52,6 +51,10 @@ function App() {
                 )
               );
             });
+        })
+        .catch((err) => {
+          console.log("err", err);
+          if (err.error.code == "InvalidAuthenticationToken") setToken("null");
         });
     }
   }, [token]);
