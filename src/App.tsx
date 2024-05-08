@@ -1,7 +1,4 @@
 import "./App.css";
-// import { useMsal } from "@azure/msal-react";
-// import { InteractionRequiredAuthError } from "@azure/msal-browser";
-// import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { TokenContext } from "./main";
 import {
@@ -13,9 +10,8 @@ import axios from "axios";
 function App() {
   const [profile, setProfile] = useState<any>(null);
   const [token] = useContext(TokenContext);
-  console.log("tokenContext", token);
   useEffect(() => {
-    console.log("token >>", token);
+    console.log("token >>", token.replace("\n", ""));
     if (!token) {
       const authConfig: TeamsUserCredentialAuthConfig = {
         clientId: "c873c02f-c54c-4ef0-82f2-ca953957b0b7",
@@ -35,7 +31,7 @@ function App() {
       axios
         .get("https://graph.microsoft.com/v1.0/me", {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${token.replace("\n", "")}`,
           },
         })
         .then((res) => setProfile(res.data));
