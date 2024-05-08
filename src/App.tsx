@@ -25,7 +25,8 @@ function App() {
         .then(() => {
           let sessionToken = sessionStorage.getItem("accessToken");
           console.log("sessionToken", sessionToken);
-          if (sessionToken) setToken(sessionToken);
+          if (sessionToken)
+            setToken(sessionToken.replace("\n", "").replace(/"/g, ""));
         })
         .catch((err) => console.log("login - err >", err));
     } else {
