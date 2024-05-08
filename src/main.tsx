@@ -1,7 +1,7 @@
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import TeamsLogin from "./components/TeamsLogin.tsx";
 import AuthEnd from "./components/AuthEnd.tsx";
@@ -29,12 +29,14 @@ const TokenProvider: React.FC<{ children: React.ReactNode }> = ({
   const [appStatus, setAppStatus] = useState(false);
   const [context, setContext] = useState(initial.context);
 
-  app.initialize().then(() => {
-    app.getContext().then((context) => {
-      setContext(context);
-      setAppStatus(true);
+  useEffect(() => {
+    app.initialize().then(() => {
+      app.getContext().then((context) => {
+        setContext(context);
+        setAppStatus(true);
+      });
     });
-  });
+  }, []);
   return (
     <TokenContext.Provider
       value={{ token, setToken, isAppInitialize: appStatus, context }}>
