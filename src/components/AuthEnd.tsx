@@ -23,6 +23,10 @@ const AuthEnd = () => {
           .handleRedirectPromise()
           .then((token) => {
             console.log("end token", token);
+            sessionStorage.setItem(
+              "accessToken",
+              JSON.stringify(token?.accessToken)
+            );
 
             if (token !== null) {
               authentication.notifySuccess(
