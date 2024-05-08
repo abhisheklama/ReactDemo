@@ -66,6 +66,7 @@ function App() {
 }
 
 const Profile = ({ profile, users }: { profile: any; users: any[] }) => {
+  console.log("users >", users);
   const openUserChat = (id: string) => {
     let obj: OpenSingleChatRequest = {
       user: id,
