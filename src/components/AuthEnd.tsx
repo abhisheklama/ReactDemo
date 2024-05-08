@@ -1,4 +1,5 @@
 import { PublicClientApplication } from "@azure/msal-browser";
+import { app, authentication } from "@microsoft/teams-js";
 
 const AuthEnd = () => {
   const clientId = sessionStorage.getItem("clientId");
@@ -14,16 +15,31 @@ const AuthEnd = () => {
       cacheLocation: "sessionStorage", // This configures where your cache will be stored
     },
   };
+  app.getContext().then(() => {
+    const msal = new PublicClientApplication(msalConfig);
+    msal.initialize().then(() => {
+      msal
+        .handleRedirectPromise()
+        .then((token) => {
+          console.log("end token", token);
 
-  const msal = new PublicClientApplication(msalConfig);
-  msal.initialize().then(() => {
-    msal
-      .handleRedirectPromise()
-      .then((token) => {
-        console.log("end token", token);
-        localStorage.setItem("token", JSON.stringify(token));
-      })
-      .catch((err) => console.log("err token", err));
+          if (token !== null) {
+            authentication.notifySuccess(
+              JSON.stringify({
+                sessionStorage: sessionStorage,
+              })
+            );
+          } else {
+            authentication.notifyFailure("Get empty response.");
+          }
+        })
+        .catch((err) => {
+          console.log("err token", err);
+          authentication.notifyFailure(
+            JSON.stringify({ sessionStorage: sessionStorage })
+          );
+        });
+    });
   });
   return <>Auth End</>;
 };
