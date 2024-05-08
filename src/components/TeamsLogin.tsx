@@ -6,7 +6,8 @@ const TeamsLogin = () => {
   console.log("query", query);
   const clientId = query.get("clientId");
   const loginHint = query.get("loginHint");
-  var scope = "User.Read email openid profile offline_access";
+  var scope =
+    "User.Read email openid profile offline_access TeamsActivity.Send";
   const scopesArray = scope.split(" ");
   const msalConfig = {
     auth: {
