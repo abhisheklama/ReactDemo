@@ -35,7 +35,7 @@ function App() {
             Authorization: `Bearer ${token}`,
           },
         })
-        .then((res) => {
+        .then((data) => {
           axios
             .get("https://graph.microsoft.com/v1.0/users", {
               headers: {
@@ -44,7 +44,7 @@ function App() {
             })
             .then((res: any) => {
               console.log("users res", res);
-              setProfile(res.data);
+              setProfile(data.data);
               setUsers(
                 res.data.value.filter(
                   (user: any) => user.id == profile.id && user.mail
