@@ -54,7 +54,7 @@ function App() {
             });
         });
     }
-  }, []);
+  }, [token]);
 
   return (
     <>
@@ -69,9 +69,9 @@ function App() {
 
 const Profile = ({ profile, users }: { profile: any; users: any[] }) => {
   console.log("users >", users);
-  const openUserChat = (id: string) => {
+  const openUserChat = (mail: string) => {
     let obj: OpenSingleChatRequest = {
-      user: id,
+      user: mail,
     };
     chat.openChat(obj);
   };
@@ -82,7 +82,7 @@ const Profile = ({ profile, users }: { profile: any; users: any[] }) => {
         return (
           <>
             {user.displayName}
-            <button onClick={() => openUserChat(user.id)}> open chat</button>
+            <button onClick={() => openUserChat(user.mail)}> open chat</button>
           </>
         );
       })}
