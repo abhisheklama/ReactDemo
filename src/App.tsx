@@ -14,7 +14,7 @@ function App() {
   const [users, setUsers] = useState<any[]>([]);
   useEffect(() => {
     console.log("token >>", token);
-    if (!token) {
+    if (token == "null" || !token) {
       const authConfig: TeamsUserCredentialAuthConfig = {
         clientId: "c873c02f-c54c-4ef0-82f2-ca953957b0b7",
         initiateLoginEndpoint: `${window.location.origin}/auth_start`,
