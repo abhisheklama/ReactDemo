@@ -6,7 +6,7 @@ import {
   TeamsUserCredentialAuthConfig,
 } from "@microsoft/teamsfx";
 import axios from "axios";
-import { OpenSingleChatRequest, chat } from "@microsoft/teams-js";
+import { OpenSingleChatRequest, call, chat } from "@microsoft/teams-js";
 
 function App() {
   const [profile, setProfile] = useState<any>(null);
@@ -75,6 +75,14 @@ const Profile = ({ profile, users }: { profile: any; users: any[] }) => {
     };
     chat.openChat(obj);
   };
+
+  const startVideoCall = (mail: string) => {
+    let params: call.StartCallParams = {
+      targets: [mail],
+      requestedModalities: [call.CallModalities.Video],
+    };
+    call.startCall(params);
+  };
   return (
     <>
       <h1>Welcome {profile.displayName}</h1>
@@ -83,6 +91,10 @@ const Profile = ({ profile, users }: { profile: any; users: any[] }) => {
           <>
             {user.displayName}
             <button onClick={() => openUserChat(user.mail)}> open chat</button>
+            <button onClick={() => startVideoCall(user.mail)}>
+              {" "}
+              Start Video Call
+            </button>
           </>
         );
       })}
