@@ -34,7 +34,9 @@ function App() {
     } else {
       axios
         .get("https://graph.microsoft.com/v1.0/me", {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         })
         .then((res) => setProfile(res.data));
     }
