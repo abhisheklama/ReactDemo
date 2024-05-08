@@ -12,8 +12,8 @@ function App() {
   const [profile, setProfile] = useState<any>(null);
   const { token, setToken } = useContext(TokenContext);
   const [users, setUsers] = useState<any[]>([]);
+  console.log("token >>", token);
   useEffect(() => {
-    console.log("token >>", token);
     if (token == "null" || !token) {
       const authConfig: TeamsUserCredentialAuthConfig = {
         clientId: "c873c02f-c54c-4ef0-82f2-ca953957b0b7",
@@ -48,7 +48,7 @@ function App() {
               setProfile(data.data);
               setUsers(
                 res.data.value.filter(
-                  (user: any) => user.id == data.data.id && user.mail
+                  (user: any) => user.id != data.data.id && user.mail
                 )
               );
             });
