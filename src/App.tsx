@@ -8,14 +8,15 @@ import {
   TeamsUserCredential,
   TeamsUserCredentialAuthConfig,
 } from "@microsoft/teamsfx";
+import axios from "axios";
 
 function App() {
-  const [profile] = useState<any>(null);
-  const [ImgUrl] = useState("");
-  const tokenContext = useContext(TokenContext);
-  console.log("tokenContext", tokenContext);
+  const [profile, setProfile] = useState<any>(null);
+  const [token] = useContext(TokenContext);
+  console.log("tokenContext", token);
   useEffect(() => {
-    if (tokenContext) {
+    console.log("token >>", token);
+    if (!token) {
       const authConfig: TeamsUserCredentialAuthConfig = {
         clientId: "c873c02f-c54c-4ef0-82f2-ca953957b0b7",
         initiateLoginEndpoint: `${window.location.origin}/auth_start`,
@@ -30,25 +31,21 @@ function App() {
             .then((token) => console.log("token", token));
         })
         .catch((err) => console.log("login - err >", err));
+    } else {
+      axios
+        .get("https://graph.microsoft.com/v1.0/me", {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((res) => setProfile(res.data));
     }
   }, []);
-  return (
-    <>
-      {!profile ? (
-        <h1>Demo App</h1>
-      ) : (
-        <Profile profile={profile} img={ImgUrl} />
-      )}
-    </>
-  );
+  return <>{!profile ? <h1>Demo App</h1> : <Profile profile={profile} />}</>;
 }
 
-const Profile = ({ profile, img }: { profile: any; img: string }) => {
+const Profile = ({ profile }: { profile: any }) => {
   return (
     <>
-      <img src={img} />
-      <h2>{profile.displayName}</h2>
-      <p>{profile.mail}</p>
+      <h2>Welcome {profile.displayName}</h2>
     </>
   );
 };
