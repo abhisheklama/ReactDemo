@@ -28,7 +28,13 @@ function App() {
     // Put these code in a call-to-action callback function to avoid browser blocking automatically showing up pop-ups.
     teamsUserCredential
       .login(["User.Read"])
-      .then((res) => console.log("login res", res))
+      .then((res) => {
+        console.log("login res", res);
+
+        teamsUserCredential
+          .getToken("Personal")
+          .then((token) => console.log("token", token));
+      })
       .catch((err) => console.log("login - err >", err)); // Login with scope
 
     teamsUserCredential
