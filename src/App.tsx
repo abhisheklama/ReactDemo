@@ -25,6 +25,7 @@ function App() {
         .login(["User.Read"])
         .then(() => {
           let sessionToken = sessionStorage.getItem("accessToken");
+          console.log("sessionToken", sessionToken);
           if (sessionToken) setToken(sessionToken);
         })
         .catch((err) => console.log("login - err >", err));
