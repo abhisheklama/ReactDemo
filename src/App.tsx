@@ -36,7 +36,6 @@ function App() {
           },
         })
         .then((res) => {
-          setProfile(res.data);
           axios
             .get("https://graph.microsoft.com/v1.0/users", {
               headers: {
@@ -44,7 +43,8 @@ function App() {
               },
             })
             .then((res: any) => {
-              console.log("users", res);
+              console.log("users res", res);
+              setProfile(res.data);
               setUsers(
                 res.data.value.filter(
                   (user: any) => user.id == profile.id && user.mail
