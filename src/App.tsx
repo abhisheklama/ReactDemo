@@ -47,7 +47,7 @@ function App() {
               setProfile(data.data);
               setUsers(
                 res.data.value.filter(
-                  (user: any) => user.id == profile.id && user.mail
+                  (user: any) => user.id == data.data.id && user.mail
                 )
               );
             });
