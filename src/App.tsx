@@ -11,7 +11,7 @@ function App() {
   const [profile, setProfile] = useState<any>(null);
   const [token] = useContext(TokenContext);
   useEffect(() => {
-    console.log("token >>", token.replace("\n", ""));
+    console.log("token >>", token.replace("\n", "").replace(`"`, ""));
     if (!token) {
       const authConfig: TeamsUserCredentialAuthConfig = {
         clientId: "c873c02f-c54c-4ef0-82f2-ca953957b0b7",
