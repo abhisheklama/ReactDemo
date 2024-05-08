@@ -6,10 +6,12 @@ import {
   TeamsUserCredentialAuthConfig,
 } from "@microsoft/teamsfx";
 import axios from "axios";
+import { OpenSingleChatRequest, chat } from "@microsoft/teams-js";
 
 function App() {
   const [profile, setProfile] = useState<any>(null);
-  const [token] = useContext(TokenContext);
+  const { token, setToken } = useContext(TokenContext);
+  const [users, setUsers] = useState<any[]>([]);
   useEffect(() => {
     console.log("token >>", token);
     if (!token) {
@@ -22,28 +24,65 @@ function App() {
       teamsUserCredential
         .login(["User.Read"])
         .then(() => {
-          teamsUserCredential
-            .getToken("Personal")
-            .then((token) => console.log("token", token));
+          let sessionToken = sessionStorage.getItem("accessToken");
+          if (sessionToken) setToken(sessionToken);
         })
         .catch((err) => console.log("login - err >", err));
     } else {
       axios
         .get("https://graph.microsoft.com/v1.0/me", {
           headers: {
-            Authorization: `Bearer ${token.replace("\n", "")}`,
+            Authorization: `Bearer ${token}`,
           },
         })
-        .then((res) => setProfile(res.data));
+        .then((res) => {
+          setProfile(res.data);
+          axios
+            .get("https://graph.microsoft.com/v1.0/users", {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            })
+            .then((res) =>
+              setUsers(
+                res.data.value.filter(
+                  (user: any) => user.id == profile.id && user.mail
+                )
+              )
+            );
+        });
     }
   }, []);
-  return <>{!profile ? <h1>Demo App</h1> : <Profile profile={profile} />}</>;
-}
 
-const Profile = ({ profile }: { profile: any }) => {
   return (
     <>
-      <h2>Welcome {profile.displayName}</h2>
+      {!profile ? (
+        <h1>Demo App</h1>
+      ) : (
+        <Profile profile={profile} users={users} />
+      )}
+    </>
+  );
+}
+
+const Profile = ({ profile, users }: { profile: any; users: any[] }) => {
+  const openUserChat = (id: string) => {
+    let obj: OpenSingleChatRequest = {
+      user: id,
+    };
+    chat.openChat(obj);
+  };
+  return (
+    <>
+      <h1>Welcome {profile.displayName}</h1>
+      {users.map((user) => {
+        return (
+          <>
+            {user.displayName}
+            <button onClick={() => openUserChat(user.id)}> open chat</button>
+          </>
+        );
+      })}
     </>
   );
 };
