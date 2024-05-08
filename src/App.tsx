@@ -6,7 +6,7 @@ import {
   TeamsUserCredentialAuthConfig,
 } from "@microsoft/teamsfx";
 import axios from "axios";
-import { OpenSingleChatRequest, call, chat } from "@microsoft/teams-js";
+import { OpenSingleChatRequest, call, chat, pages } from "@microsoft/teams-js";
 
 function App() {
   const [profile, setProfile] = useState<any>(null);
@@ -83,6 +83,10 @@ const Profile = ({ profile, users }: { profile: any; users: any[] }) => {
     };
     call.startCall(params);
   };
+
+  const openAboutPage = () => {
+    pages.currentApp.navigateTo({ pageId: "index1" });
+  };
   return (
     <>
       <h1>Welcome {profile.displayName}</h1>
@@ -98,6 +102,7 @@ const Profile = ({ profile, users }: { profile: any; users: any[] }) => {
           </>
         );
       })}
+      <button onClick={() => openAboutPage()}>go to About</button>
     </>
   );
 };

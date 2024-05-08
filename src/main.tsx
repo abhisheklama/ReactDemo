@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import TeamsLogin from "./components/TeamsLogin.tsx";
 import AuthEnd from "./components/AuthEnd.tsx";
 import { app } from "@microsoft/teams-js";
+import About from "./components/About.tsx";
 
 let initial: {
   token: string;
@@ -52,6 +53,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <Route path="/" element={<App />} />
         <Route path="/auth_start" element={<TeamsLogin />} />
         <Route path="/auth_end" element={<AuthEnd />} />
+        <Route path="/about" element={<About />} />
       </Routes>
     </BrowserRouter>
   </TokenProvider>
