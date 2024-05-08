@@ -43,13 +43,14 @@ function App() {
                 Authorization: `Bearer ${token}`,
               },
             })
-            .then((res) =>
+            .then((res: any) => {
+              console.log("users", res);
               setUsers(
                 res.data.value.filter(
                   (user: any) => user.id == profile.id && user.mail
                 )
-              )
-            );
+              );
+            });
         });
     }
   }, []);
