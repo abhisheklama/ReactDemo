@@ -12,7 +12,7 @@ export const TokenContext = createContext(initial);
 const TokenProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const token = useState("");
+  const token = useState(sessionStorage.getItem("accessToken"));
   return (
     <TokenContext.Provider value={token}>{children}</TokenContext.Provider>
   );
