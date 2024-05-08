@@ -43,7 +43,6 @@ function App() {
               },
             })
             .then((res: any) => {
-              console.log("users res", res);
               setProfile(data.data);
               setUsers(
                 res.data.value.filter(
@@ -54,7 +53,8 @@ function App() {
         })
         .catch((err) => {
           console.log("err", err);
-          if (err.error.code == "InvalidAuthenticationToken") setToken("null");
+          if (err.response.data.error.code == "InvalidAuthenticationToken")
+            setToken("null");
         });
     }
   }, [token]);
@@ -71,7 +71,6 @@ function App() {
 }
 
 const Profile = ({ profile, users }: { profile: any; users: any[] }) => {
-  console.log("users >", users);
   const openUserChat = (mail: string) => {
     let obj: OpenSingleChatRequest = {
       user: mail,
