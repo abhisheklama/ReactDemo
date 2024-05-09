@@ -14,7 +14,6 @@ function App() {
   const [users, setUsers] = useState<any[]>([]);
   useEffect(() => {
     if (token == "null" || !token) {
-      alert("no token found redirecting to authenticate");
       const authConfig: TeamsUserCredentialAuthConfig = {
         clientId: "c873c02f-c54c-4ef0-82f2-ca953957b0b7",
         initiateLoginEndpoint: `${window.location.origin}/auth_start`,
@@ -30,7 +29,6 @@ function App() {
             setToken(sessionToken.replace("\n", "").replace(/"/g, ""));
         })
         .catch((err: any) => {
-          alert("App >" + err);
           console.log("login - err >", err);
         });
     } else {

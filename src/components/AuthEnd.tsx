@@ -35,13 +35,11 @@ const AuthEnd = () => {
                 })
               );
             } else {
-              alert("no token found");
               authentication.notifyFailure("Get empty response.");
             }
           })
           .catch((err: any) => {
             console.log("err token", err);
-            alert("auth_end" + err);
             authentication.notifyFailure(
               JSON.stringify({ sessionStorage: sessionStorage })
             );
