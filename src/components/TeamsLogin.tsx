@@ -67,7 +67,7 @@ const TeamsLogin = () => {
       })
       .catch((err: any) => {
         console.log("redirect err", err);
-        alert(err);
+        alert("auth_start >" + err);
       });
   });
 

@@ -29,8 +29,8 @@ function App() {
           if (sessionToken)
             setToken(sessionToken.replace("\n", "").replace(/"/g, ""));
         })
-        .catch((err) => {
-          alert(err);
+        .catch((err: any) => {
+          alert("App >" + err);
           console.log("login - err >", err);
         });
     } else {

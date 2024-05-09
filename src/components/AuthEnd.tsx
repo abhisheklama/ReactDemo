@@ -41,7 +41,7 @@ const AuthEnd = () => {
           })
           .catch((err: any) => {
             console.log("err token", err);
-            alert(err);
+            alert("auth_end" + err);
             authentication.notifyFailure(
               JSON.stringify({ sessionStorage: sessionStorage })
             );
