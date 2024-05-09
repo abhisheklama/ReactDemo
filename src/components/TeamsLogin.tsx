@@ -65,8 +65,9 @@ const TeamsLogin = () => {
       .then((res) => {
         console.log("res", res);
       })
-      .catch((err) => {
+      .catch((err: any) => {
         console.log("redirect err", err);
+        alert(err);
       });
   });
 
