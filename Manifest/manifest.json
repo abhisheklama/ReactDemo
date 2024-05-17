@@ -1,0 +1,70 @@
+{
+    "$schema": "https://developer.microsoft.com/json-schemas/teams/v1.7/MicrosoftTeams.schema.json",
+    "manifestVersion": "1.7",
+    "version": "1.2.0",
+    "id": "c873c02f-c54c-4ef0-82f2-ca953957b0b7",
+    "packageName": "com.microsoft.teams.extension",
+    "developer": {
+        "name": "Teams App, Inc.",
+        "websiteUrl": "https://www.example.com",
+        "privacyUrl": "https://www.example.com/privacy",
+        "termsOfUseUrl": "https://www.example.com/termsofuse"
+    },
+    "icons": {
+        "color": "color.png",
+        "outline": "outline.png"
+    },
+    "name": {
+        "short": "TestApp",
+        "full": "Full name for test"
+    },
+    "description": {
+        "short": "Short description of test",
+        "full": "Full description of test"
+    },
+    "accentColor": "#FFFFFF",
+    "bots": [],
+    "composeExtensions": [],
+    "staticTabs": [
+        {
+            "entityId": "index0",
+            "name": "Personal Tab",
+            "contentUrl": "https://react-demo-pied.vercel.app",
+            "websiteUrl": "https://react-demo-pied.vercel.app",
+            "scopes": [
+                "personal"
+            ]
+        },
+        {
+            "entityId": "index1",
+            "name": "About Tab",
+            "contentUrl": "https://react-demo-pied.vercel.app/about",
+            "websiteUrl": "https://react-demo-pied.vercel.app/about",
+            "scopes": [
+                "personal"
+            ]
+        }
+    ],
+    "permissions": [
+        "identity",
+        "messageTeamMembers"
+    ],
+    "activities": {
+        "activityTypes": [
+            {
+                "type": "taskCreated",
+                "description": "Task Created Activity",
+                "templateText": "{actor} created task {taskId} for you"
+            },
+            {
+                "type": "approvalRequired",
+                "description": "Deployment requires your approval",
+                "templateText": "{actor} created a new deployment {deploymentId}"
+            }
+        ]
+    },
+    "webApplicationInfo": {
+        "id": "c873c02f-c54c-4ef0-82f2-ca953957b0b7",
+        "resource": "api://react-demo-pied.vercel.app/c873c02f-c54c-4ef0-82f2-ca953957b0b7"
+    }
+}

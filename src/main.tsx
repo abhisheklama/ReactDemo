@@ -32,7 +32,8 @@ const TokenProvider: React.FC<{ children: React.ReactNode }> = ({
 
   useEffect(() => {
     app.initialize().then(() => {
-      app.getContext().then((context) => {
+      app.getContext().then((context: any) => {
+        console.log("context >>", context);
         setContext(context);
         setAppStatus(true);
       });
